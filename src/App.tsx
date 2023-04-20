@@ -1,34 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+// Importing necessary components and functions from their respective files
+import ListGroup from "./components/ListGroup";
+import Alert from "./components/Alert";
+import Button from "./components/Button";
+import { Children, useState } from "react";
 
+// Defining the main component of the app
 function App() {
-  const [count, setCount] = useState(0)
+  // Initializing state using the useState hook. alertVisable is the state variable, and setAlertVisibility is the function to update it
+  const [alertVisable, setAlertVisibility] = useState(false);
 
+  // Defining an array of items
+  let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
+
+  // Defining a function to handle the selection of an item from the list
+  const handleSelectItem = (item: string) => {
+    console.log(item);
+  };
+
+  // The main JSX code that returns the UI
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <div>
+      {/* Rendering the ListGroup component and passing the items, heading and onSelectItem props */}
+      <ListGroup
+        items={items}
+        heading="Cities"
+        onSelectItem={handleSelectItem}
+      />
+
+      {/* Conditionally rendering the Alert component based on the value of alertVisable state variable */}
+      {alertVisable && (
+        <Alert onClose={() => setAlertVisibility(false)} children="Alerting!" />
+      )}
+
+      {/* Rendering the Button component and passing the children, onClick and color props */}
+      <Button
+        children="Click ME!"
+        onClick={() => setAlertVisibility(true)}
+        color="danger"
+      />
     </div>
-  )
+  );
 }
 
-export default App
+// Exporting the App component as the default export of the module
+export default App;
